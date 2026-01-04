@@ -13,9 +13,8 @@ import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder
 import com.lowdragmc.lowdraglib.utils.Position
 import net.minecraft.nbt.CompoundTag
 
-
-class ExpMEInputBusPartMachine(holder: IMachineBlockEntity, vararg args: Object): MEInputBusPartMachine(holder, args) {
-    val managedFieldHolder = ManagedFieldHolder(ExpMEInputBusPartMachine::class.java, MANAGED_FIELD_HOLDER)
+open class ExpMEInputBusPartMachine(holder: IMachineBlockEntity, vararg args: Any): MEInputBusPartMachine(holder, args) {
+    open val managedFieldHolder = ManagedFieldHolder(ExpMEInputBusPartMachine::class.java, MANAGED_FIELD_HOLDER)
 
     companion object {
         const val SIZE = 32
@@ -34,7 +33,10 @@ class ExpMEInputBusPartMachine(holder: IMachineBlockEntity, vararg args: Object)
         group.addWidget(LabelWidget(3, 0,
             if (this.isOnline) "gtceu.gui.me_network.online" else "gtceu.gui.me_network.offline"
         ))
-        group.addWidget(ExpAEItemConfigWidget(3, 10, this.aeItemHandler))
+        val left = this.aeItemHandler.inventory.copyOfRange(0, SIZE / 2)
+        val right = this.aeItemHandler.inventory.copyOfRange(SIZE / 2, SIZE)
+        group.addWidget(ExpAEItemConfigWidget(3, 10, aeItemHandler, left))
+        group.addWidget(ExpAEItemConfigWidget(3, 10 + 76, aeItemHandler, right))
         return group
     }
 

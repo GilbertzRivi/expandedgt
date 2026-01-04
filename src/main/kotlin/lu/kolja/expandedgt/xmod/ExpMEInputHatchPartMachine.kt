@@ -13,8 +13,8 @@ import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder
 import com.lowdragmc.lowdraglib.utils.Position
 import net.minecraft.nbt.CompoundTag
 
-class ExpMEInputHatchPartMachine(holder: IMachineBlockEntity, vararg args: Object): MEInputHatchPartMachine(holder, args) {
-    val managedFieldHolder = ManagedFieldHolder(ExpMEInputHatchPartMachine::class.java, MANAGED_FIELD_HOLDER)
+open class ExpMEInputHatchPartMachine(holder: IMachineBlockEntity, vararg args: Any): MEInputHatchPartMachine(holder, args) {
+    open val managedFieldHolder = ManagedFieldHolder(ExpMEInputHatchPartMachine::class.java, MANAGED_FIELD_HOLDER)
 
     companion object {
         const val SIZE = 32
@@ -32,7 +32,10 @@ class ExpMEInputHatchPartMachine(holder: IMachineBlockEntity, vararg args: Objec
         group.addWidget(LabelWidget(3, 0,
             if (this.isOnline) "gtceu.gui.me_network.online" else "gtceu.gui.me_network.offline"
         ))
-        group.addWidget(ExpAEFluidConfigWidget(3, 10, this.aeFluidHandler))
+        val left = this.aeFluidHandler.inventory.copyOfRange(0, SIZE / 2)
+        val right = this.aeFluidHandler.inventory.copyOfRange(SIZE / 2, SIZE)
+        group.addWidget(ExpAEFluidConfigWidget(3, 10, aeFluidHandler, left))
+        group.addWidget(ExpAEFluidConfigWidget(3, 10 + 76, aeFluidHandler, right))
         return group
     }
 
