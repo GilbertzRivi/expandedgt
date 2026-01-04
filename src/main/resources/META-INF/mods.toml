@@ -1,5 +1,5 @@
 modLoader = "kotlinforforge"
-loaderVersion = "[4.11,)"
+loaderVersion = "[4.12,)"
 license = "${mod_license}"
 # logoFile = ""
 mixins = ["mixins.${mod_id}.json"]

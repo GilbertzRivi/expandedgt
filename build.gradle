@@ -9,7 +9,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '2.0.20'
+    id 'org.jetbrains.kotlin.jvm' version '2.2.21'
     id 'eclipse'
     id 'idea'
     id 'net.neoforged.moddev.legacyforge' version '2.0.137'
@@ -149,6 +149,8 @@ dependencies {
 
     modImplementation("appeng:appliedenergistics2-forge:$ae2_version") { transitive = false }
     modImplementation "curse.maven:guideme-1173950:6489464"
+    modImplementation "curse.maven:ex-pattern-provider-892005:7248944"
+    modImplementation "curse.maven:glodium-957920:5226922"
 
     for (extraModJar in fileTree(dir: "extra-mods", include: '*.jar')) {
         def basename = extraModJar.name.substring(0, extraModJar.name.length() - ".jar".length())
