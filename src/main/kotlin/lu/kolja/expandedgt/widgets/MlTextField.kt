@@ -245,7 +245,6 @@ class MlTextField(
 
             val ln = textField.line(idx)
             val str = textField.value().substring(ln.begin, ln.end)
-            var xOff = clipL
 
             if (textField.hasSelection()) {
                 val lineStartChar = ln.begin
@@ -259,14 +258,14 @@ class MlTextField(
                         val preSel = str.substring(0, selStartInLine)
                         val selectionText = str.substring(selStartInLine, selEndInLine)
 
-                        val selX = xOff + font.width(preSel)
+                        val selX = clipL + font.width(preSel)
                         val selW = font.width(selectionText)
                         graphics.fill(selX, y, selX + selW, y + font.lineHeight, selectionColor)
                     }
                 }
             }
 
-            graphics.drawString(font, str, xOff, y, 0xFFFFFFFF.toInt())
+            graphics.drawString(font, str, clipL, y, 0xFFFFFFFF.toInt())
             y += font.lineHeight
         }
 
